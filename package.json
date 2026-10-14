@@ -1,0 +1,87 @@
+{
+  "name": "bugboo",
+  "displayName": "BugBoo 👻",
+  "description": "A playful pixel-art ghost companion that reacts to your real coding events, errors, and progress in VS Code.",
+  "version": "0.1.0",
+  "publisher": "kiranmayee-abbireddy",
+  "license": "MIT",
+  "icon": "media/icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kiranmayee-abbireddy/BugBoo.git"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "companion",
+    "pet",
+    "mascot",
+    "gamification",
+    "productivity",
+    "pixel-art",
+    "ghost",
+    "diagnostics"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "bugboo-sidebar",
+          "title": "BugBoo",
+          "icon": "media/ghost-icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "bugboo-sidebar": [
+        {
+          "type": "webview",
+          "id": "bugboo.sidebarView",
+          "name": "BugBoo 👻"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "bugboo.summon",
+        "title": "BugBoo: Summon",
+        "category": "BugBoo"
+      },
+      {
+        "command": "bugboo.changeMood",
+        "title": "BugBoo: Change Mood",
+        "category": "BugBoo"
+      },
+      {
+        "command": "bugboo.showStats",
+        "title": "BugBoo: Show Stats",
+        "category": "BugBoo"
+      },
+      {
+        "command": "bugboo.resetProgress",
+        "title": "BugBoo: Reset Progress",
+        "category": "BugBoo"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.3.3"
+  }
+}
