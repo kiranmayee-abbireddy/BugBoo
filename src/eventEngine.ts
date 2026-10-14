@@ -125,6 +125,57 @@ export class EventEngine implements vscode.Disposable {
         this.handleDiagnosticChange();
       })
     );
+
+    // 5. Text Selection / Cursor Movement (catches user engaging with editor/inputs)
+    this.disposables.push(
+      vscode.window.onDidChangeTextEditorSelection((e) => {
+        this.resetIdleTimer();
+        const scheme = e.textEditor.document.uri.scheme.toLowerCase();
+        const path = (e.textEditor.document.uri.path || '').toLowerCase();
+        const isAiPrompt =
+          scheme === 'vscode-chat-editor' ||
+          scheme === 'copilot' ||
+          scheme === 'comment' ||
+          scheme === 'interactive' ||
+          scheme === 'input' ||
+          scheme === 'webview' ||
+          path.includes('chat') ||
+          path.includes('copilot') ||
+          path.includes('prompt') ||
+          path.includes('antigravity') ||
+          path.includes('cursor');
+
+        if (isAiPrompt) {
+          const now = Date.now();
+          if (now - this.lastTypingTime >= this.TYPING_COOLDOWN_MS) {
+            this.lastTypingTime = now;
+            this.onEventCallback({
+              type: 'ai_prompting',
+              timestamp: now,
+              details: { fileName: 'AI Prompt' }
+            });
+          }
+        }
+      })
+    );
+
+    // 6. Window State / Focus Changes (wake up ghost when switching back to IDE)
+    this.disposables.push(
+      vscode.window.onDidChangeWindowState((state) => {
+        if (state.focused) {
+          this.resetIdleTimer();
+          const now = Date.now();
+          if (now - this.lastEditorSwitchTime >= this.SWITCH_COOLDOWN_MS) {
+            this.lastEditorSwitchTime = now;
+            this.onEventCallback({
+              type: 'active_editor_changed',
+              timestamp: now,
+              details: { fileName: 'Workspace' }
+            });
+          }
+        }
+      })
+    );
   }
 
   public getDiagnosticSnapshot(): DiagnosticSnapshot {
