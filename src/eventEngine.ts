@@ -10,21 +10,19 @@ export class EventEngine implements vscode.Disposable {
   private lastEditorSwitchTime = 0;
   private lastSaveTime = 0;
   private idleTimer: NodeJS.Timeout | null = null;
-  private chaosDecayTimer: NodeJS.Timeout | null = null;
 
   // Cooldown durations in milliseconds
-  private readonly TYPING_COOLDOWN_MS = 3000;
-  private readonly SWITCH_COOLDOWN_MS = 2500;
-  private readonly SAVE_COOLDOWN_MS = 2000;
-  private readonly IDLE_TIMEOUT_MS = 30000; // 30s to enter sleep/idle
-  private readonly CHAOS_DECAY_INTERVAL_MS = 20000; // every 20s decrease chaos slowly
+  private readonly TYPING_COOLDOWN_MS = 2000;
+  private readonly SWITCH_COOLDOWN_MS = 2000;
+  private readonly SAVE_COOLDOWN_MS = 1500;
+  private readonly IDLE_TIMEOUT_MS = 45000;
+  private diagnosticDebounceTimer: NodeJS.Timeout | null = null;
 
   constructor(onEventCallback: (event: NormalizedEvent) => void) {
     this.onEventCallback = onEventCallback;
     this.initSubscriptions();
     this.initInitialDiagnostics();
     this.startIdleTimer();
-    this.startChaosDecayTimer();
   }
 
   private initSubscriptions(): void {
@@ -51,7 +49,7 @@ export class EventEngine implements vscode.Disposable {
       })
     );
 
-    // 2. Typing / Text Document Changed (includes AI prompt inputs and chat boxes)
+    // 2. Typing / Text Document Changed
     this.disposables.push(
       vscode.workspace.onDidChangeTextDocument((e) => {
         if (e.contentChanges.length === 0) {
@@ -60,34 +58,30 @@ export class EventEngine implements vscode.Disposable {
         const now = Date.now();
         this.resetIdleTimer();
 
-        // Check if typing inside an AI prompt editor / chat input (Copilot, Cursor, Antigravity, VS Code Chat)
+        if (now - this.lastTypingTime < this.TYPING_COOLDOWN_MS) {
+          return;
+        }
+        this.lastTypingTime = now;
+
         const docUri = e.document.uri;
         const scheme = docUri.scheme.toLowerCase();
         const path = (docUri.path || '').toLowerCase();
         const isAiPrompt =
-          scheme === 'vscode-chat-editor' ||
-          scheme === 'copilot' ||
-          scheme === 'comment' ||
-          scheme === 'interactive' ||
-          scheme === 'input' ||
+          scheme.includes('chat') ||
+          scheme.includes('copilot') ||
+          scheme.includes('input') ||
+          scheme.includes('interactive') ||
           path.includes('chat') ||
           path.includes('copilot') ||
           path.includes('prompt') ||
           path.includes('antigravity') ||
           path.includes('cursor');
 
-        if (now - this.lastTypingTime < this.TYPING_COOLDOWN_MS) {
-          return;
-        }
-        this.lastTypingTime = now;
-
         if (isAiPrompt) {
           this.onEventCallback({
             type: 'ai_prompting',
             timestamp: now,
-            details: {
-              fileName: 'AI Prompt'
-            }
+            details: { fileName: 'AI Prompt' }
           });
         } else {
           this.onEventCallback({
@@ -119,61 +113,15 @@ export class EventEngine implements vscode.Disposable {
       })
     );
 
-    // 4. Diagnostics Changed
+    // 4. Diagnostics Changed (Debounced 500ms to avoid thrashing CPU on every single keypress)
     this.disposables.push(
       vscode.languages.onDidChangeDiagnostics(() => {
-        this.handleDiagnosticChange();
-      })
-    );
-
-    // 5. Text Selection / Cursor Movement (catches user engaging with editor/inputs)
-    this.disposables.push(
-      vscode.window.onDidChangeTextEditorSelection((e) => {
-        this.resetIdleTimer();
-        const scheme = e.textEditor.document.uri.scheme.toLowerCase();
-        const path = (e.textEditor.document.uri.path || '').toLowerCase();
-        const isAiPrompt =
-          scheme === 'vscode-chat-editor' ||
-          scheme === 'copilot' ||
-          scheme === 'comment' ||
-          scheme === 'interactive' ||
-          scheme === 'input' ||
-          scheme === 'webview' ||
-          path.includes('chat') ||
-          path.includes('copilot') ||
-          path.includes('prompt') ||
-          path.includes('antigravity') ||
-          path.includes('cursor');
-
-        if (isAiPrompt) {
-          const now = Date.now();
-          if (now - this.lastTypingTime >= this.TYPING_COOLDOWN_MS) {
-            this.lastTypingTime = now;
-            this.onEventCallback({
-              type: 'ai_prompting',
-              timestamp: now,
-              details: { fileName: 'AI Prompt' }
-            });
-          }
+        if (this.diagnosticDebounceTimer) {
+          clearTimeout(this.diagnosticDebounceTimer);
         }
-      })
-    );
-
-    // 6. Window State / Focus Changes (wake up ghost when switching back to IDE)
-    this.disposables.push(
-      vscode.window.onDidChangeWindowState((state) => {
-        if (state.focused) {
-          this.resetIdleTimer();
-          const now = Date.now();
-          if (now - this.lastEditorSwitchTime >= this.SWITCH_COOLDOWN_MS) {
-            this.lastEditorSwitchTime = now;
-            this.onEventCallback({
-              type: 'active_editor_changed',
-              timestamp: now,
-              details: { fileName: 'Workspace' }
-            });
-          }
-        }
+        this.diagnosticDebounceTimer = setTimeout(() => {
+          this.handleDiagnosticChange();
+        }, 500);
       })
     );
   }
@@ -255,24 +203,14 @@ export class EventEngine implements vscode.Disposable {
     this.resetIdleTimer();
   }
 
-  private startChaosDecayTimer(): void {
-    this.chaosDecayTimer = setInterval(() => {
-      // Periodically trigger idle_timeout which naturally reduces chaos slightly
-      this.onEventCallback({
-        type: 'idle_timeout',
-        timestamp: Date.now()
-      });
-    }, this.CHAOS_DECAY_INTERVAL_MS);
-  }
-
   public dispose(): void {
     if (this.idleTimer) {
       clearTimeout(this.idleTimer);
       this.idleTimer = null;
     }
-    if (this.chaosDecayTimer) {
-      clearInterval(this.chaosDecayTimer);
-      this.chaosDecayTimer = null;
+    if (this.diagnosticDebounceTimer) {
+      clearTimeout(this.diagnosticDebounceTimer);
+      this.diagnosticDebounceTimer = null;
     }
     for (const d of this.disposables) {
       d.dispose();

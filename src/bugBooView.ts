@@ -59,6 +59,13 @@ export class BugBooViewProvider implements vscode.WebviewViewProvider {
       }
     });
 
+    // Notify when visibility changes to save CPU/RAM
+    webviewView.onDidChangeVisibility(() => {
+      if (this.view?.visible) {
+        this.broadcastCurrentState();
+      }
+    });
+
     // Send state immediately on render
     this.broadcastCurrentState();
   }
@@ -83,7 +90,7 @@ export class BugBooViewProvider implements vscode.WebviewViewProvider {
   }
 
   private broadcastCurrentState(levelUp?: boolean): void {
-    if (!this.view) {
+    if (!this.view || !this.view.visible) {
       return;
     }
 
