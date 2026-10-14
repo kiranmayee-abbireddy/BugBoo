@@ -1,4 +1,4 @@
-import { GhostMood, EventType, NormalizedEvent } from './types';
+import { GhostMood, NormalizedEvent } from './types';
 
 export interface PersonalityOutcome {
   mood: GhostMood;
