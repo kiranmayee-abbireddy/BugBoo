@@ -122,70 +122,48 @@ export class BugBooViewProvider implements vscode.WebviewViewProvider {
   <div class="container">
     <!-- Header -->
     <div class="header">
-      <div class="logo-group">
-        <span>👻</span>
-        <span class="title">BugBoo</span>
-      </div>
+      <span class="title">👻 BugBoo</span>
       <div class="level-badge" id="levelBadge">LVL 1</div>
     </div>
 
-    <!-- Character & Dialogue Stage -->
+    <!-- Character Stage -->
     <div class="stage">
       <div class="speech-bubble" id="speechBubble">
-        <span id="speechText">Loading ghost spirits...</span>
+        <span id="speechText">Loading...</span>
       </div>
-      <div class="ghost-box mood-idle" id="ghostBox" title="Click to poke BugBoo!">
+      <div class="ghost-box mood-idle" id="ghostBox" title="Poke me!">
         <svg class="ghost-container" id="ghostSvg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-          <!-- Dynamically populated expression SVG -->
         </svg>
       </div>
     </div>
 
-    <!-- Chaos Meter -->
-    <div class="meter-card">
-      <div class="meter-header">
-        <span style="color: #f87171;">🔥 Chaos Meter</span>
-        <div>
+    <!-- Compact Meters -->
+    <div class="meters">
+      <div class="meter-row">
+        <div class="meter-header">
+          <span>🔥 Chaos <span id="chaosStage" style="color: #c084fc;">(Chill)</span></span>
           <span class="meter-val" id="chaosScore">0%</span>
-          <span style="color: #a855f7; font-size: 10px;"> (<span id="chaosStage">Chill</span>)</span>
+        </div>
+        <div class="bar-track">
+          <div class="bar-fill chaos-fill" id="chaosFill" style="width: 0%;"></div>
         </div>
       </div>
-      <div class="bar-track">
-        <div class="bar-fill chaos-fill" id="chaosFill" style="width: 0%;"></div>
-      </div>
-    </div>
 
-    <!-- Progression Meter -->
-    <div class="meter-card">
-      <div class="meter-header">
-        <span style="color: #c084fc;">⭐ Experience (XP)</span>
-        <span class="meter-val" id="xpFraction" style="font-size: 10px;">0 / 100 XP</span>
-      </div>
-      <div class="bar-track">
-        <div class="bar-fill xp-fill" id="xpFill" style="width: 0%;"></div>
-      </div>
-    </div>
-
-    <!-- Mini Stats Row -->
-    <div class="stats-row">
-      <div class="stat-chip">
-        <div class="stat-label">Total XP</div>
-        <div class="stat-number" id="totalXpDisplay">0</div>
-      </div>
-      <div class="stat-chip">
-        <div class="stat-label">Active Target</div>
-        <div class="stat-number" id="activeFileDisplay" style="font-size: 11px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Ready</div>
+      <div class="meter-row">
+        <div class="meter-header">
+          <span>⭐ XP Progress</span>
+          <span class="meter-val" id="xpFraction">0/100</span>
+        </div>
+        <div class="bar-track">
+          <div class="bar-fill xp-fill" id="xpFill" style="width: 0%;"></div>
+        </div>
       </div>
     </div>
 
     <!-- Actions -->
     <div class="actions">
-      <button class="btn" id="changeMoodBtn" title="Manually cycle or preview moods">
-        <span>✨</span> Change Mood
-      </button>
-      <button class="btn btn-secondary" id="statsBtn" title="Inspect character details">
-        <span>📊</span> Stats
-      </button>
+      <button class="btn" id="changeMoodBtn" title="Change Mood">✨ Mood</button>
+      <button class="btn" id="statsBtn" title="View Stats">📊 Stats</button>
     </div>
   </div>
 
