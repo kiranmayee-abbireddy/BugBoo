@@ -140,14 +140,17 @@
     `
   };
 
+  let currentRenderedMood = '';
+
   function setMood(mood) {
     if (!ghostSvg || !ghostBox) return;
 
-    // Set SVG content
-    ghostSvg.innerHTML = EXPRESSIONS[mood] || EXPRESSIONS.idle;
-
-    // Update animation classes
-    ghostBox.className = 'ghost-box mood-' + mood;
+    // Only update innerHTML if the mood actually changed to avoid GC thrashing
+    if (currentRenderedMood !== mood) {
+      currentRenderedMood = mood;
+      ghostSvg.innerHTML = EXPRESSIONS[mood] || EXPRESSIONS.idle;
+      ghostBox.className = 'ghost-box mood-' + mood;
+    }
   }
 
   function updateUI(state) {
@@ -155,7 +158,7 @@
 
     // Mood & dialogue
     setMood(state.mood);
-    if (speechText) {
+    if (speechText && speechText.textContent !== state.dialogue) {
       speechText.textContent = state.dialogue || '...';
     }
 

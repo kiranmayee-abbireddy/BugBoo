@@ -19,6 +19,13 @@ export class BugBooViewProvider implements vscode.WebviewViewProvider {
     progression: ProgressionState;
     activeFile?: string;
   };
+  private lastBroadcastState?: {
+    mood: GhostMood;
+    dialogue: string;
+    chaos: number;
+    totalXp: number;
+    activeFile?: string;
+  };
 
   constructor(
     extensionUri: vscode.Uri,
@@ -78,12 +85,33 @@ export class BugBooViewProvider implements vscode.WebviewViewProvider {
     levelUp?: boolean;
     activeFile?: string;
   }): void {
+    const hasChanged =
+      !this.lastBroadcastState ||
+      this.lastBroadcastState.mood !== state.mood ||
+      this.lastBroadcastState.dialogue !== state.dialogue ||
+      this.lastBroadcastState.chaos !== state.chaos ||
+      this.lastBroadcastState.totalXp !== state.progression.totalXp ||
+      this.lastBroadcastState.activeFile !== (state.activeFile ?? this.currentState.activeFile) ||
+      Boolean(state.levelUp);
+
     this.currentState = {
       mood: state.mood,
       dialogue: state.dialogue,
       chaos: state.chaos,
       progression: state.progression,
       activeFile: state.activeFile ?? this.currentState.activeFile
+    };
+
+    if (!hasChanged) {
+      return;
+    }
+
+    this.lastBroadcastState = {
+      mood: state.mood,
+      dialogue: state.dialogue,
+      chaos: state.chaos,
+      totalXp: state.progression.totalXp,
+      activeFile: this.currentState.activeFile
     };
 
     this.broadcastCurrentState(state.levelUp);
