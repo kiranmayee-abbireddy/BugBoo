@@ -113,10 +113,8 @@ body {
   height: 68px;
   position: relative;
   cursor: pointer;
-  filter: drop-shadow(0 4px 8px rgba(168, 85, 247, 0.25));
   transition: transform 0.15s ease;
   transform: translateZ(0);
-  will-change: transform;
 }
 
 .ghost-box:hover {

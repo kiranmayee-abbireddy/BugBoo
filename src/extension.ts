@@ -45,12 +45,7 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(
     vscode.window.registerWebviewViewProvider(
       BugBooViewProvider.viewType,
-      viewProvider,
-      {
-        webviewOptions: {
-          retainContextWhenHidden: true
-        }
-      }
+      viewProvider
     )
   );
 

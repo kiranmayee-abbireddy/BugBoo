@@ -31,27 +31,11 @@
   ],
   "main": "./out/extension.js",
   "contributes": {
-    "viewsContainers": {
-      "activitybar": [
-        {
-          "id": "bugboo-sidebar",
-          "title": "BugBoo",
-          "icon": "media/ghost-icon.svg"
-        }
-      ]
-    },
     "views": {
       "explorer": [
         {
           "type": "webview",
           "id": "bugboo.sidebarView",
-          "name": "BugBoo 👻"
-        }
-      ],
-      "bugboo-sidebar": [
-        {
-          "type": "webview",
-          "id": "bugboo.sidebarAltView",
           "name": "BugBoo 👻"
         }
       ]
