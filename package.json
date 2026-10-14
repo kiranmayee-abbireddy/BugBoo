@@ -70,9 +70,12 @@
     "test": "mocha ./out/test/**/*.test.js"
   },
   "devDependencies": {
+    "@types/glob": "^8.1.0",
     "@types/mocha": "^10.0.10",
     "@types/node": "^20.11.0",
     "@types/vscode": "^1.85.0",
+    "@vscode/test-electron": "^3.1.0",
+    "glob": "^13.0.6",
     "mocha": "^12.0.3",
     "typescript": "^5.3.3"
   }
