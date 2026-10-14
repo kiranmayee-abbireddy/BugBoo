@@ -51,7 +51,7 @@ export class EventEngine implements vscode.Disposable {
       })
     );
 
-    // 2. Typing / Text Document Changed
+    // 2. Typing / Text Document Changed (includes AI prompt inputs and chat boxes)
     this.disposables.push(
       vscode.workspace.onDidChangeTextDocument((e) => {
         if (e.contentChanges.length === 0) {
@@ -60,15 +60,41 @@ export class EventEngine implements vscode.Disposable {
         const now = Date.now();
         this.resetIdleTimer();
 
+        // Check if typing inside an AI prompt editor / chat input (Copilot, Cursor, Antigravity, VS Code Chat)
+        const docUri = e.document.uri;
+        const scheme = docUri.scheme.toLowerCase();
+        const path = (docUri.path || '').toLowerCase();
+        const isAiPrompt =
+          scheme === 'vscode-chat-editor' ||
+          scheme === 'copilot' ||
+          scheme === 'comment' ||
+          scheme === 'interactive' ||
+          scheme === 'input' ||
+          path.includes('chat') ||
+          path.includes('copilot') ||
+          path.includes('prompt') ||
+          path.includes('antigravity') ||
+          path.includes('cursor');
+
         if (now - this.lastTypingTime < this.TYPING_COOLDOWN_MS) {
           return;
         }
         this.lastTypingTime = now;
 
-        this.onEventCallback({
-          type: 'typing',
-          timestamp: now
-        });
+        if (isAiPrompt) {
+          this.onEventCallback({
+            type: 'ai_prompting',
+            timestamp: now,
+            details: {
+              fileName: 'AI Prompt'
+            }
+          });
+        } else {
+          this.onEventCallback({
+            type: 'typing',
+            timestamp: now
+          });
+        }
       })
     );
 

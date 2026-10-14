@@ -107,6 +107,18 @@ describe('BugBoo Core Test Suite', () => {
       assert.strictEqual(PersonalityEngine.getChaosStage(100), 'Maximum drama');
     });
 
+    it('triggers AI prompting reaction when typing prompts', () => {
+      const event: NormalizedEvent = {
+        type: 'ai_prompting',
+        timestamp: Date.now(),
+        details: { fileName: 'AI Prompt' }
+      };
+      const outcome = engine.evaluateEvent(event, 20);
+      assert.strictEqual(outcome.mood, 'curious');
+      assert.strictEqual(outcome.xpDelta, 1);
+      assert.ok(outcome.dialogue.length > 0);
+    });
+
     it('prevents consecutive identical dialogue messages when multiple options exist', () => {
       const d1 = engine.getDialogue('diagnostics_increased');
       const d2 = engine.getDialogue('diagnostics_increased');

@@ -36,6 +36,16 @@ export class PersonalityEngine {
       'keep typing, let\'s ship this.',
       'type faster the bugs are catching up!'
     ],
+    ai_prompting: [
+      'whispering sweet prompts to the AI again?',
+      'let\'s see if the AI can write better code than you lol.',
+      'copilot take the wheel!!',
+      'asking the AI to fix your mess? respect.',
+      'prompt engineering goes crazy rn.',
+      'make sure to say please so they spare us later.',
+      'prompting the robot overlords...',
+      'let\'s hope this prompt doesn\'t hallucinate 100 errors.'
+    ],
     save: [
       'saved! don\'t lose this one.',
       'ctrl+s is my favorite shortcut.',
@@ -186,6 +196,17 @@ export class PersonalityEngine {
           chaosDelta: 0,
           xpDelta: 0,
           reason: 'Developer typing'
+        };
+      }
+
+      case 'ai_prompting': {
+        const mood: GhostMood = currentChaos > 50 ? 'panicked' : 'curious';
+        return {
+          mood,
+          dialogue: this.getDialogue('ai_prompting'),
+          chaosDelta: +1,
+          xpDelta: 1,
+          reason: 'Developer writing AI prompt'
         };
       }
 

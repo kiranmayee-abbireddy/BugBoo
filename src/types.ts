@@ -4,6 +4,7 @@ export type EventType =
   | 'idle_timeout'
   | 'active_editor_changed'
   | 'typing'
+  | 'ai_prompting'
   | 'document_saved'
   | 'diagnostics_increased'
   | 'diagnostics_decreased'
