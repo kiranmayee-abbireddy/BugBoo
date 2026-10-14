@@ -161,7 +161,10 @@ function registerCommands(context: vscode.ExtensionContext): void {
         { label: '😊 Happy', mood: 'happy', desc: 'Content and floating gently' },
         { label: '🧐 Curious', mood: 'curious', desc: 'Inspecting code closely' },
         { label: '😱 Panicked', mood: 'panicked', desc: 'Terrified of bugs' },
-        { label: '🎉 Celebrating', mood: 'celebrating', desc: 'Party hat and confetti!' }
+        { label: '🎉 Celebrating', mood: 'celebrating', desc: 'Party hat and confetti!' },
+        { label: '🔥 Rage', mood: 'rage', desc: 'Furious at broken code' },
+        { label: '😏 Smug', mood: 'smug', desc: 'Zero errors, built different' },
+        { label: '💫 Dizzy', mood: 'dizzy', desc: 'Way too many files and tabs' }
       ];
 
       const selected = await vscode.window.showQuickPick(moods, {

@@ -1,4 +1,4 @@
-export type GhostMood = 'idle' | 'happy' | 'curious' | 'panicked' | 'celebrating';
+export type GhostMood = 'idle' | 'happy' | 'curious' | 'panicked' | 'celebrating' | 'rage' | 'smug' | 'dizzy';
 
 export type EventType =
   | 'idle_timeout'

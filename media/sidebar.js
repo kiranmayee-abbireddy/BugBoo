@@ -95,6 +95,48 @@
       <text x="14" y="24" font-size="12" fill="#FDE047">★</text>
       <text x="78" y="24" font-size="12" fill="#38BDF8">✦</text>
       <text x="82" y="44" font-size="10" fill="#4ADE80">★</text>
+    `,
+    rage: `
+      <!-- Fiery Rage Ghost -->
+      <path d="M20 50 C20 28 35 15 50 15 C65 15 80 28 80 50 L80 85 L70 78 L60 85 L50 78 L40 85 L30 78 L20 85 Z" fill="#F87171"/>
+      <!-- Angry sharp slanted eyebrows & eyes -->
+      <path d="M32 40 L46 47" stroke="#450A0A" stroke-width="3.5" stroke-linecap="round"/>
+      <circle cx="39" cy="49" r="4" fill="#1E1B4B"/>
+      <path d="M68 40 L54 47" stroke="#450A0A" stroke-width="3.5" stroke-linecap="round"/>
+      <circle cx="61" cy="49" r="4" fill="#1E1B4B"/>
+      <!-- Jagged angry mouth -->
+      <path d="M40 59 L44 56 L48 60 L52 56 L56 60 L60 56" stroke="#450A0A" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+      <!-- Smoke / fire puffs -->
+      <text x="74" y="26" font-size="12" fill="#EF4444">💢</text>
+      <text x="14" y="26" font-size="11" fill="#DC2626">🔥</text>
+    `,
+    smug: `
+      <!-- Smug / Sassy Ghost -->
+      <path d="M20 50 C20 28 35 15 50 15 C65 15 80 28 80 50 L80 85 L70 78 L60 85 L50 78 L40 85 L30 78 L20 85 Z" fill="#C4B5FD"/>
+      <!-- Sassy half-closed eyes -->
+      <path d="M34 46 Q40 42 46 45" stroke="#1E1B4B" stroke-width="3" stroke-linecap="round" fill="none"/>
+      <circle cx="42" cy="48" r="2.5" fill="#1E1B4B"/>
+      <path d="M54 45 Q60 42 66 46" stroke="#1E1B4B" stroke-width="3" stroke-linecap="round" fill="none"/>
+      <circle cx="58" cy="48" r="2.5" fill="#1E1B4B"/>
+      <!-- Smug sideways smirk -->
+      <path d="M48 55 Q56 57 60 51" stroke="#1E1B4B" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+      <!-- Pink blush -->
+      <circle cx="30" cy="52" r="4" fill="#F472B6"/>
+      <circle cx="70" cy="52" r="4" fill="#F472B6"/>
+      <!-- Sunglasses sparkle -->
+      <text x="74" y="32" font-size="10" fill="#FDE047">✨</text>
+    `,
+    dizzy: `
+      <!-- Dizzy / Overwhelmed Ghost -->
+      <path d="M20 50 C20 28 35 15 50 15 C65 15 80 28 80 50 L80 85 L70 78 L60 85 L50 78 L40 85 L30 78 L20 85 Z" fill="#E2E8F0"/>
+      <!-- Spiral / X dizzy eyes -->
+      <text x="32" y="49" font-size="13" font-weight="bold" fill="#1E1B4B">×</text>
+      <text x="54" y="49" font-size="13" font-weight="bold" fill="#1E1B4B">×</text>
+      <!-- Wobbly mouth -->
+      <path d="M42 58 Q46 54 50 58 Q54 62 58 58" stroke="#1E1B4B" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+      <!-- Orbiting stars -->
+      <text x="20" y="24" font-size="11" fill="#FBBF24">💫</text>
+      <text x="68" y="20" font-size="11" fill="#38BDF8">🌀</text>
     `
   };
 

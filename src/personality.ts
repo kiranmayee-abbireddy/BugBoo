@@ -13,75 +13,93 @@ export class PersonalityEngine {
 
   private readonly dialogues: Record<string, string[]> = {
     idle: [
-      'brb, entering sleep mode...',
-      'zzz... don\'t cause syntax errors while I nap.',
-      '*quiet pixel ghost breathing*',
-      'I haunt this codebase peacefully.',
-      'floating into the void...',
-      'manifesting clean builds in my sleep...'
+      'taking a nap, don\'t break anything.',
+      'zzz... don\'t crash the app while I\'m resting.',
+      'wake me up when you actually start coding.',
+      'just floating here doing nothing.',
+      'resting my eyes.',
+      'quiet hours, let\'s keep it that way.'
     ],
     editor_opened: [
-      'what are we cooking?',
-      'new file, fresh bugs to be born.',
-      'let\'s inspect this masterpiece.',
-      'another tab added to the graveyard.',
-      'ooh, what do we have here?',
-      'let\'s get down to business.'
+      'yo what are we working on now?',
+      'another file? bold choice.',
+      'let\'s see what mess you got in here.',
+      'new tab, please don\'t break it.',
+      'alright let\'s get into it.',
+      'another file to debug later lol.'
     ],
     typing: [
-      'LOCK INNN.',
-      'speed demons only!',
-      'tap tap tap... smells like progress.',
-      'typing furiously I see.',
-      'words become code. hopefully valid code.',
-      'keep cooking!'
+      'ok ok you\'re typing fast!',
+      'lock in!',
+      'look at those fingers go.',
+      'hopefully this actually compiles.',
+      'keep typing, let\'s ship this.',
+      'type faster the bugs are catching up!'
     ],
     save: [
-      'saved. probably.',
-      'written to disk! no takebacks.',
-      'saved. may git have mercy on our souls.',
-      'commit early, save often.',
-      'persisted to the realm of bytes.',
-      'one small save for man, giant leap for this repo.'
+      'saved! don\'t lose this one.',
+      'ctrl+s is my favorite shortcut.',
+      'saved. please commit it now.',
+      'nice save, literally.',
+      'one step closer to shipping.',
+      'saved! now don\'t touch anything.'
     ],
     diagnostics_increased: [
-      'BESTIE, EXPLAIN.',
-      'red squiggles! who did this?!',
-      'PANIC STATIONS! THE COMPILER IS CRYING.',
-      'a wild bug appeared!',
-      'my chaos meter is tingling...',
-      'we broke something and I love/hate it!'
+      'BRO WHAT DID YOU JUST DO?!',
+      'RED LINES EVERYWHERE HELP.',
+      'dude the compiler is screaming at us.',
+      'no no no undo that right now!',
+      'who wrote this?! oh wait you did.',
+      'MY CHAOS METER IS EXPLODING!'
     ],
     diagnostics_decreased: [
-      'I WAS NEVER WORRIED.',
-      'clean code unlocked!',
-      'squashed it like a pro.',
-      'look at you fixing things!',
-      'relief washes over my ethereal body.',
-      'compiler satisfied. for now.'
+      'AYYY you actually fixed it!',
+      'told you you had this.',
+      'bug squashed! good stuff.',
+      'clean code baby, let\'s gooo!',
+      'compiler is happy again.',
+      'crisis averted. nice job!'
+    ],
+    rage: [
+      'STOP WRITING ERRORS AHHHHH!',
+      'WHAT IS THIS CODE EVEN?!',
+      'MY EYES ARE BURNING BRO.',
+      'IM GONNA THROW HANDS WITH THE COMPILER!'
+    ],
+    smug: [
+      'yeah we\'re pretty good at this.',
+      'too clean. nothing can stop us.',
+      'zero errors, you\'re welcome.',
+      'built different today.'
+    ],
+    dizzy: [
+      'so many files my head is spinning...',
+      'woah slow down buddy.',
+      'what line are we even on right now?',
+      'too much going on at once...'
     ],
     manual_mood: [
-      'shape-shifting at your command!',
-      'mood updated: vibing on cue.',
-      'I am whatever you need me to be.',
-      'the vibes have shifted.'
+      'new vibe unlocked.',
+      'alright changing faces for you.',
+      'looking fresh.',
+      'whatever you say boss.'
     ],
     level_up: [
-      'I HAVE EVOLVED. FEAR ME.',
-      'LEVEL UP! Spectral powers intensifying!',
-      'New level unlocked! Give me more bugs to feast on!',
-      'Look at us growing together!'
+      'YOOOO LEVEL UP!!',
+      'LEVEL UP! Look at us actually making progress!',
+      'We leveled up! Don\'t let it get to your head.',
+      'New level unlocked! We\'re unstoppable now!'
     ],
     workspace_activated: [
-      'BOO! I\'m your new code companion.',
-      'Workspace haunted successfully.',
-      'Let\'s build something magical today!'
+      'sup! ready to write some bugs today?',
+      'workspace loaded, let\'s get to work.',
+      'here to keep you company and judge your code.'
     ],
     high_chaos: [
-      'EVERYTHING IS ON FIRE AND IT\'S BEAUTIFUL.',
-      'Maximum drama mode engaged!',
-      'Red squiggles everywhere! Ahhhhh!',
-      'The chaos is intoxicating.'
+      'EVERYTHING IS ON FIRE BRO RUN!!',
+      'HOW DID IT GET THIS BAD SO FAST?!',
+      'THERE ARE ERRORS EVERYWHERE STOP TYPING!',
+      'WE ARE COOKED LMAOOO'
     ]
   };
 
@@ -104,10 +122,13 @@ export class PersonalityEngine {
   public evaluateEvent(event: NormalizedEvent, currentChaos: number): PersonalityOutcome {
     switch (event.type) {
       case 'diagnostics_increased': {
-        const delta = Math.min(25, Math.max(5, (event.details?.diagnosticDelta || 1) * 8));
-        const mood: GhostMood = 'panicked';
-        const dialogue = currentChaos > 70 
-          ? this.getDialogue('high_chaos') 
+        const delta = Math.min(30, Math.max(8, (event.details?.diagnosticDelta || 1) * 10));
+        const newChaos = currentChaos + delta;
+        const mood: GhostMood = newChaos >= 70 ? 'rage' : 'panicked';
+        const dialogue = newChaos >= 75
+          ? this.getDialogue('high_chaos')
+          : newChaos >= 50
+          ? this.getDialogue('rage')
           : this.getDialogue('diagnostics_increased');
         return {
           mood,
@@ -119,11 +140,15 @@ export class PersonalityEngine {
       }
 
       case 'diagnostics_decreased': {
-        const delta = Math.min(25, Math.max(5, Math.abs(event.details?.diagnosticDelta || 1) * 8));
-        const mood: GhostMood = 'celebrating';
+        const delta = Math.min(25, Math.max(6, Math.abs(event.details?.diagnosticDelta || 1) * 8));
+        const remainingChaos = Math.max(0, currentChaos - delta);
+        const mood: GhostMood = remainingChaos <= 15 ? 'smug' : 'celebrating';
+        const dialogue = mood === 'smug'
+          ? this.getDialogue('smug')
+          : this.getDialogue('diagnostics_decreased');
         return {
           mood,
-          dialogue: this.getDialogue('diagnostics_decreased'),
+          dialogue,
           chaosDelta: -delta,
           xpDelta: 10,
           reason: 'Diagnostic errors resolved'
@@ -131,7 +156,7 @@ export class PersonalityEngine {
       }
 
       case 'document_saved': {
-        const mood: GhostMood = currentChaos > 60 ? 'panicked' : 'happy';
+        const mood: GhostMood = currentChaos > 70 ? 'rage' : currentChaos > 45 ? 'panicked' : 'happy';
         return {
           mood,
           dialogue: this.getDialogue('save'),
@@ -142,10 +167,11 @@ export class PersonalityEngine {
       }
 
       case 'active_editor_changed': {
-        const mood: GhostMood = 'curious';
+        const mood: GhostMood = currentChaos > 60 ? 'dizzy' : 'curious';
+        const dialogue = mood === 'dizzy' ? this.getDialogue('dizzy') : this.getDialogue('editor_opened');
         return {
           mood,
-          dialogue: this.getDialogue('editor_opened'),
+          dialogue,
           chaosDelta: 0,
           xpDelta: 0,
           reason: 'Switched active editor'
