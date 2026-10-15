@@ -6,11 +6,13 @@ BugBoo provides real-time ambient feedback based on editor events, file navigati
 
 ---
 
-## Showcase Video
+## Showcase
 
-https://github.com/kiranmayee-abbireddy/BugBoo/raw/master/BugBoo.mp4
+[![BugBoo Showcase](media/showcase-preview.gif)](https://github.com/kiranmayee-abbireddy/BugBoo/raw/master/BugBoo.mp4)
 
-> **Watch the full showcase video above** to see BugBoo's fluid dock animations, AI awareness, real-time error reactions, and emotion transitions in action.
+> 📹 **[Click here to watch or download the full 1080p video with audio (BugBoo.mp4)](https://github.com/kiranmayee-abbireddy/BugBoo/raw/master/BugBoo.mp4)**.
+>
+> *(GitHub markdown natively prevents raw `<video>` playback for security, so the high-framerate animated preview is embedded above for instant playback inside GitHub, with a direct link to the full narrated HD video).*
 
 ---
 
