@@ -154,51 +154,51 @@ export class BugBooViewProvider implements vscode.WebviewViewProvider {
   <title>BugBoo</title>
 </head>
 <body>
-  <div class="container">
+  <div class="companion-dock" id="companionDock">
     <!-- Header -->
-    <div class="header">
-      <span class="title">👻 BugBoo</span>
-      <div class="level-badge" id="levelBadge">LVL 1</div>
+    <div class="dock-header">
+      <div class="dock-title">
+        <span>BUGBOO</span>
+        <span class="dock-lvl-tag" id="companionLvlBadge">LVL 1</span>
+      </div>
+      <div class="dock-mood-pill" id="dockMoodPill">MOOD: IDLE 😴</div>
     </div>
 
-    <!-- Character Stage -->
-    <div class="stage">
-      <div class="speech-bubble" id="speechBubble">
-        <span id="speechText">Loading...</span>
+    <!-- Ghost Box (Side-by-side character & speech bubble) -->
+    <div class="ghost-box" id="ghostBox" title="Poke BugBoo!">
+      <div id="ghostAnchor">
+        <svg id="ghostSvg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"></svg>
       </div>
-      <div class="ghost-box mood-idle" id="ghostBox" title="Poke me!">
-        <svg class="ghost-container" id="ghostSvg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-        </svg>
-      </div>
-    </div>
-
-    <!-- Compact Meters -->
-    <div class="meters">
-      <div class="meter-row">
-        <div class="meter-header">
-          <span>🔥 Chaos <span id="chaosStage" style="color: #c084fc;">(Chill)</span></span>
-          <span class="meter-val" id="chaosScore">0%</span>
-        </div>
-        <div class="bar-track">
-          <div class="bar-fill chaos-fill" id="chaosFill" style="width: 0%;"></div>
-        </div>
-      </div>
-
-      <div class="meter-row">
-        <div class="meter-header">
-          <span>⭐ XP Progress</span>
-          <span class="meter-val" id="xpFraction">0/100</span>
-        </div>
-        <div class="bar-track">
-          <div class="bar-fill xp-fill" id="xpFill" style="width: 0%;"></div>
-        </div>
+      <div class="ghost-speech">
+        <div id="speechTextBubble">taking a nap, don't break anything.</div>
       </div>
     </div>
 
-    <!-- Actions -->
-    <div class="actions">
-      <button class="btn" id="changeMoodBtn" title="Change Mood">✨ Mood</button>
-      <button class="btn" id="statsBtn" title="View Stats">📊 Stats</button>
+    <!-- Gauges -->
+    <div class="dock-gauge">
+      <div class="gauge-labels">
+        <span>Chaos Meter</span>
+        <span id="chaosNumber">0% (Chill)</span>
+      </div>
+      <div class="gauge-rail">
+        <div id="chaosBarFill"></div>
+      </div>
+    </div>
+
+    <div class="dock-gauge">
+      <div class="gauge-labels">
+        <span>Companion XP</span>
+        <span id="xpNumber">0 / 100</span>
+      </div>
+      <div class="gauge-rail">
+        <div id="xpBarFill"></div>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="dock-actions">
+      <button class="action-btn" id="changeMoodBtn" title="Cycle / Pick Mood">✨ Mood</button>
+      <button class="action-btn" id="statsBtn" title="View BugBoo Stats">📊 Stats</button>
     </div>
   </div>
 
