@@ -161,6 +161,16 @@
       ghostBox.className = 'ghost-box mood-' + mood;
     }
 
+    const companionDock = document.getElementById('companionDock');
+    if (companionDock) {
+      // Remove any prior mood-* class
+      companionDock.className = companionDock.className
+        .split(' ')
+        .filter(c => !c.startsWith('mood-'))
+        .join(' ');
+      companionDock.classList.add('mood-' + mood);
+    }
+
     if (dockMoodPill) {
       const pillConfig = MOOD_PILLS[mood] || MOOD_PILLS.idle;
       dockMoodPill.textContent = pillConfig.text;

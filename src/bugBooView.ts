@@ -159,7 +159,6 @@ export class BugBooViewProvider implements vscode.WebviewViewProvider {
     <div class="dock-header">
       <div class="dock-title">
         <span>BUGBOO</span>
-        <span class="dock-lvl-tag" id="companionLvlBadge">LVL 1</span>
       </div>
       <div class="dock-mood-pill" id="dockMoodPill">MOOD: IDLE 😴</div>
     </div>
