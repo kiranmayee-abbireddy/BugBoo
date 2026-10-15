@@ -89,64 +89,51 @@ Choose between 7 sleek ghost color themes directly from the sidebar or via the C
 
 ---
 
-## Command Palette Reference
+## Quick Start & Usage
 
-Access commands via `Ctrl+Shift+P` (or `Cmd+Shift+P` on macOS) by typing `BugBoo`:
-
-| Command | Identifier | Function |
-|---|---|---|
-| `BugBoo: Summon` | `bugboo.summon` | Reveals and focuses the BugBoo companion view. |
-| `BugBoo: Change Mood` | `bugboo.changeMood` | Manually previews any of the 8 emotional expressions. |
-| `BugBoo: Customize Avatar Color` | `bugboo.changeColor` | Select from 7 avatar color themes (Lavender, Mint, Cyberpunk, Rose, Midnight, Sunshine, Spectral). |
-| `BugBoo: Show Stats` | `bugboo.showStats` | Displays an information notification with current Chaos percentage, mood, and active color theme. |
-| `BugBoo: Reset Progress` | `bugboo.resetProgress` | Resets the Chaos meter and restores BugBoo to a chilled state. |
-
-### Configuration
-
-Customize BugBoo through VS Code Settings (`Ctrl+,` or `Cmd+,` searching for `bugboo`):
-
-- `bugboo.avatarColor`: Avatar color theme (`lavender`, `mint`, `cyberpunk`, `rose`, `midnight`, `sunshine`, `spectral`).
+1. **Install BugBoo** directly from the **VS Code Extensions Marketplace** (`Ctrl+Shift+X` / `Cmd+Shift+X` → search for `BugBoo`).
+2. Open your project Explorer panel (`Ctrl+Shift+E` / `Cmd+Shift+E`). BugBoo is docked right under your workspace files!
+3. Click the buttons in the dock to customize your experience:
+   - **`✨ Mood`**: Preview BugBoo's 8 expressions.
+   - **`🎨 Color`**: Toggle the color palette and switch between 7 avatar themes.
+   - **`📊 Stats`**: Check your session Chaos rating and active configuration.
 
 ---
 
-## Development & Extension Setup
+## Extension Settings
 
-### Prerequisites
+Customize BugBoo through VS Code Settings (`Ctrl+,` or `Cmd+,` searching for `bugboo`):
 
-- [Node.js](https://nodejs.org/) (version 18.0 or later)
-- [Visual Studio Code](https://code.visualstudio.com/) (version 1.85.0 or later)
+| Setting | Type | Default | Description |
+|---|---|---|---|
+| `bugboo.avatarColor` | `string` | `"lavender"` | Theme color (`lavender`, `mint`, `cyberpunk`, `rose`, `midnight`, `sunshine`, `spectral`) |
 
-### Installation
+---
 
-```bash
-git clone https://github.com/kiranmayee-abbireddy/BugBoo.git
-cd BugBoo
-npm install
-```
+## Command Palette Reference
 
-### Build & Test
+All features are also accessible via `Ctrl+Shift+P` (or `Cmd+Shift+P` on macOS) by typing `BugBoo`:
 
-```bash
-# Compile TypeScript sources
-npm run compile
+| Command | Identifier | Function |
+|---|---|---|
+| `BugBoo: Summon` | `bugboo.summon` | Reveals and focuses the BugBoo companion view in the Explorer. |
+| `BugBoo: Change Mood` | `bugboo.changeMood` | Cycles and previews emotional expressions. |
+| `BugBoo: Customize Avatar Color` | `bugboo.changeColor` | Quick-pick menu to choose an avatar color theme. |
+| `BugBoo: Show Stats` | `bugboo.showStats` | Displays session Chaos percentage, current mood, and active theme. |
+| `BugBoo: Reset Progress` | `bugboo.resetProgress` | Resets the Chaos meter and restores BugBoo to a chilled state. |
 
-# Run automated tests
-npm test
-```
+---
 
-### Debugging in VS Code
+## Privacy & Performance Guarantee
 
-1. Open the project root in VS Code: `code .`
-2. Press `F5` to launch an **Extension Development Host** window.
-3. Open the Explorer panel to view the docked BugBoo companion.
+- **100% Local & Offline**: BugBoo makes zero network calls, requires no API keys, sends no analytics, and collects zero telemetry.
+- **Ultra-Low Overhead**: Diagnostics are debounced, rendering uses CSS hardware transforms, and all timers enter sleep mode when the sidebar view is collapsed or hidden.
 
-### Packaging
+---
 
-To generate a `.vsix` distribution package:
+## Development & Contributing
 
-```bash
-npx @vscode/vsce package
-```
+Looking to build from source, run tests, or contribute to BugBoo? Check out our detailed **[Development & Contribution Guide](DEVELOPMENT.md)**.
 
 ---
 
