@@ -5,3 +5,6 @@ dist/
 .DS_Store
 .vscode-test/
 *.log
+video_render/
+BugBoo_Showcase.mp4
+

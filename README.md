@@ -1,93 +1,139 @@
-# BugBoo 👻
+# BugBoo
 
-A tiny, lightweight, and chaotic pixel-art ghost companion that lives directly beneath your Explorer file tree in VS Code, Cursor, and Antigravity.
+A lightweight, event-driven pixel-art ghost companion docked directly beneath the Explorer file tree in VS Code, Cursor, and Antigravity.
 
-BugBoo reacts to real coding events—editor navigation, rapid typing, AI prompting, and live compiler errors—expressing moods through snappy animations and hilariously unhinged dialogue. Track your code's **Chaos Meter**, earn persistent **XP**, and watch BugBoo freak out when you break the build!
-
----
-
-## ✨ Features
-
-- 📂 **Auto-Docked in Explorer**: Sits right below your file tree in the primary Explorer sidebar. Always visible without needing to click an Activity Bar icon.
-- ⚡ **Ultra-Lightweight & Efficient**:
-  - Zero polling timers and zero interval CPU loops.
-  - Diagnostics are debounced to avoid thrashing your system during fast typing.
-  - Webview message broadcasts and animations automatically sleep when the sidebar is collapsed or hidden.
-  - Pure hardware-accelerated CSS transforms (`translate3d` & `translateZ`).
-- 🎭 **8 Expressive Moods**:
-  - 😴 **Idle**: Resting and taking a nap when you step away from the keyboard.
-  - 😊 **Happy**: Floating peacefully during steady, productive coding.
-  - 🧐 **Curious**: Inspecting new tabs whenever you switch files.
-  - 😱 **Panicked**: Wide-eyed screams and sweat drops when syntax errors spike!
-  - 🎉 **Celebrating**: Party hat and confetti when you fix errors.
-  - 🔥 **Rage**: Red fiery fury when the chaos meter jumps over 70%.
-  - 😏 **Smug**: Sassy side-smirk with sparkles when code is clean and error-free.
-  - 💫 **Dizzy**: Spinning with spiral eyes when juggling too many files under high chaos.
-- 🤖 **AI Prompt Awareness**:
-  - Detects when you type prompts into Copilot, Cursor, Antigravity, or inline AI inputs (`Ctrl+I`).
-  - Reacts with witty, self-aware commentary (*"whispering sweet prompts to the AI again?"*, *"copilot take the wheel!!"*).
-- 🔥 **Live Chaos Meter**: Dynamically tracks editor chaos from 0% to 100% across four stages:
-  - `0% – 24%`: **Chill**
-  - `25% – 49%`: **Suspicious**
-  - `50% – 74%`: **Chaotic**
-  - `75% – 100%`: **Maximum drama**
-- ⭐ **Persistent Progression (XP & Levels)**:
-  - Gain XP for saves, session activity, AI prompts, and bug fixes.
-  - Levels scale gracefully (`100 × Current Level` XP required for next level).
-  - Saved securely in VS Code's local storage across restarts.
-- 🛡️ **Offline & 100% Private**:
-  - Zero external API calls, zero telemetry, no AI model calls, and no data leaves your machine.
+BugBoo provides real-time ambient feedback based on editor events, file navigation, typing cadence, AI prompts, and syntax diagnostics. It features a dynamic Chaos Meter, persistent experience (XP) progression, and 8 responsive emotional states—built without polling intervals or background performance penalties.
 
 ---
 
-## 🎮 Command Palette
+## Showcase Video
 
-Press `Ctrl+Shift+P` (or `Cmd+Shift+P` on macOS) and type `BugBoo`:
+https://github.com/kiranmayee-abbireddy/BugBoo/raw/master/BugBoo.mp4
 
-| Command | Description |
-|---|---|
-| `BugBoo: Summon` | Focuses and reveals the BugBoo view. |
-| `BugBoo: Change Mood` | Lets you preview any of the 8 expressions on demand. |
-| `BugBoo: Show Stats` | Displays current XP, Level, and Chaos status in an info banner. |
-| `BugBoo: Reset Progress` | Safely resets XP and Level progress (requires confirmation). |
+> **Watch the full showcase video above** to see BugBoo's fluid dock animations, AI awareness, real-time error reactions, and emotion transitions in action.
 
 ---
 
-## 🚀 Getting Started (Development & Building)
+## Overview
+
+![BugBoo Hero Overview](media/hero-preview.png)
+
+BugBoo resides natively in the primary Explorer sidebar, ensuring continuous visibility without consuming space in your main editor workspace or requiring manual switching between activity tabs.
+
+### Core Highlights
+
+- **Native Explorer Docking**: Integrated directly into the primary file tree view container.
+- **Hardware-Accelerated Rendering**: Utilizes isolated CSS 3D transforms (`translate3d`) and GPU compositing.
+- **Resource Efficient**: Operates with zero polling loops; diagnostics are debounced and animations sleep when the view is collapsed or hidden.
+- **Local & Offline**: Zero network calls, zero external model queries, and zero telemetry. All state is maintained locally within VS Code's extension storage.
+
+---
+
+## Key Features
+
+### 1. Multi-State Emotional Engine
+
+![BugBoo Emotions Showcase](media/emotions-preview.png)
+
+BugBoo dynamically expresses 8 distinct emotional states driven by real-time development activity:
+
+| State | Trigger Context | Description |
+|---|---|---|
+| **Idle** | Inactivity / Resting | BugBoo sleeps quietly when user is away from keyboard. |
+| **Happy** | Productive Flow | Gentle hovering during continuous coding sessions. |
+| **Curious** | File Navigation | Observes file switching and project directory browsing. |
+| **Panicked** | Syntax / Build Errors | High-alert expression triggered by diagnostics failures. |
+| **Celebrating** | Error Resolution | Commemorative animation upon fixing broken code. |
+| **Rage** | High Chaos Spike | Fiery reaction when editor error rate exceeds threshold. |
+| **Smug** | Clean Build | Relaxed satisfaction when tests and linting succeed. |
+| **Dizzy** | File Thrashing | Disoriented reaction when switching rapidly between files. |
+
+---
+
+### 2. AI Prompt Awareness
+
+![AI Prompt Awareness](media/ai-prompt-preview.png)
+
+BugBoo detects when AI assistance tools (such as GitHub Copilot, Cursor Composer, or Antigravity) are active, providing context-aware remarks and reactions as prompts are composed and executed.
+
+---
+
+### 3. Real-Time Diagnostic Reactions
+
+![Diagnostics & Panic State](media/panic-preview.png)
+
+When compiler errors or linter warnings occur, BugBoo responds immediately with visual panic cues and updates the real-time **Chaos Meter**:
+
+- **Chill (0% – 24%)**: Normal development conditions with clean diagnostics.
+- **Suspicious (25% – 49%)**: Minor warnings or rapid code modifications.
+- **Chaotic (50% – 74%)**: Multiple syntax errors or failing test runs.
+- **Maximum Drama (75% – 100%)**: Critical compiler breakage across multiple files.
+
+---
+
+### 4. Progression & Statistics
+
+- **Experience Points (XP)**: Earned through clean saves, resolved errors, session milestones, and coding duration.
+- **Companion Leveling**: Automatic level advancement based on accumulated experience.
+- **Persistent State**: Progress is securely stored across workspace restarts.
+
+---
+
+## Command Palette Reference
+
+Access commands via `Ctrl+Shift+P` (or `Cmd+Shift+P` on macOS) by typing `BugBoo`:
+
+| Command | Identifier | Function |
+|---|---|---|
+| `BugBoo: Summon` | `bugboo.summon` | Reveals and focuses the BugBoo companion view. |
+| `BugBoo: Change Mood` | `bugboo.changeMood` | Manually previews any of the 8 emotional expressions. |
+| `BugBoo: Show Stats` | `bugboo.showStats` | Displays an information notification with current Level, XP, and Chaos percentage. |
+| `BugBoo: Reset Progress` | `bugboo.resetProgress` | Clears stored experience and level progress (confirmation required). |
+
+---
+
+## Development & Extension Setup
 
 ### Prerequisites
-- [Node.js](https://nodejs.org/) (v18+)
-- [VS Code](https://code.visualstudio.com/) (v1.85+)
 
-### Clone & Install
+- [Node.js](https://nodejs.org/) (version 18.0 or later)
+- [Visual Studio Code](https://code.visualstudio.com/) (version 1.85.0 or later)
+
+### Installation
+
 ```bash
 git clone https://github.com/kiranmayee-abbireddy/BugBoo.git
 cd BugBoo
 npm install
 ```
 
-### Compile Code
-```bash
-npm run compile
-```
+### Build & Test
 
-### Run Tests
 ```bash
+# Compile TypeScript sources
+npm run compile
+
+# Run automated tests
 npm test
 ```
 
-### Run in VS Code Extension Host
-1. Open this repository folder in VS Code (`code .`).
-2. Press `F5` to start a new **Extension Development Host** window.
-3. Check the bottom of the Explorer file tree—BugBoo is docked and ready!
+### Debugging in VS Code
 
-### Package into `.vsix`
+1. Open the project root in VS Code: `code .`
+2. Press `F5` to launch an **Extension Development Host** window.
+3. Open the Explorer panel to view the docked BugBoo companion.
+
+### Packaging
+
+To generate a `.vsix` distribution package:
+
 ```bash
 npx @vscode/vsce package
 ```
 
 ---
 
-## 📄 License
+## License
 
-Distributed under the [MIT License](LICENSE).
+This project is licensed under the [MIT License](LICENSE).
+

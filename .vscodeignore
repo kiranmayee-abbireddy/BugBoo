@@ -7,3 +7,6 @@ tsconfig.json
 **/*.test.ts
 **/*.test.js
 node_modules/**
+*.mp4
+video_render/**
+
