@@ -8,11 +8,11 @@ BugBoo provides real-time ambient feedback based on editor events, file navigati
 
 ## Showcase
 
-[![BugBoo Showcase](media/showcase-preview.gif)](https://github.com/kiranmayee-abbireddy/BugBoo/raw/master/BugBoo.mp4)
+[![BugBoo Showcase](media/showcase-preview.gif)](https://github.com/kiranmayee-abbireddy/BugBoo/blob/master/BugBoo.mp4)
 
-> 📹 **[Click here to watch or download the full 1080p video with audio (BugBoo.mp4)](https://github.com/kiranmayee-abbireddy/BugBoo/raw/master/BugBoo.mp4)**.
+> 📹 **[Click here to watch the full 1080p video with audio on GitHub (BugBoo.mp4)](https://github.com/kiranmayee-abbireddy/BugBoo/blob/master/BugBoo.mp4)**.
 >
-> *(GitHub markdown natively prevents raw `<video>` playback for security, so the high-framerate animated preview is embedded above for instant playback inside GitHub, with a direct link to the full narrated HD video).*
+> *(Click the preview GIF or link above to open GitHub's native video player with sound).*
 
 ---
 
