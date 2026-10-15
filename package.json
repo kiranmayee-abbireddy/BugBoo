@@ -2,7 +2,7 @@
   "name": "bugboo",
   "displayName": "BugBoo 👻",
   "description": "A playful pixel-art ghost companion that reacts to your real coding events, errors, and progress in VS Code.",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "publisher": "kiranmayee-abbireddy",
   "license": "MIT",
   "icon": "media/icon.png",

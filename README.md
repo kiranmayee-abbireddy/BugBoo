@@ -1,6 +1,12 @@
-# BugBoo
+<p align="center">
+  <img src="media/icon.png" width="128" height="128" alt="BugBoo Logo" />
+</p>
 
-A lightweight, event-driven pixel-art ghost companion docked directly beneath the Explorer file tree in VS Code, Cursor, and Antigravity.
+<h1 align="center">BugBoo</h1>
+
+<p align="center">
+  <strong>A lightweight, event-driven pixel-art ghost companion docked directly beneath the Explorer file tree in VS Code, Cursor, and Antigravity.</strong>
+</p>
 
 BugBoo provides real-time ambient feedback based on editor events, file navigation, typing cadence, AI prompts, and syntax diagnostics. It features a dynamic Chaos Meter, 7 customizable color themes, and 8 responsive emotional states—built without polling intervals or background performance penalties.
 

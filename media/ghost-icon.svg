@@ -1,10 +1,36 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" fill="none">
+  <defs>
+    <linearGradient id="bugbooGhostGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#EBE0FF" />
+      <stop offset="55%" stop-color="#D8B4FE" />
+      <stop offset="100%" stop-color="#BD7BFB" />
+    </linearGradient>
+  </defs>
+
+  <!-- Sparkles / Magic Stars -->
+  <!-- Gold Star Top Right -->
+  <path d="M78 18 L80 23 L85 25 L80 27 L78 32 L76 27 L71 25 L76 23 Z" fill="#FDE047" opacity="0.95"/>
+  <circle cx="88" cy="18" r="1.5" fill="#FDE047" opacity="0.8"/>
+
+  <!-- Cyan Star Top Left -->
+  <path d="M22 22 L23.5 25.5 L27 27 L23.5 28.5 L22 32 L20.5 28.5 L17 27 L20.5 25.5 Z" fill="#67E8F9" opacity="0.9"/>
+  <circle cx="15" cy="20" r="1.2" fill="#67E8F9" opacity="0.75"/>
+
   <!-- Ghost Body -->
-  <path d="M5 10 C5 5.58 8.13 2 12 2 C15.87 2 19 5.58 19 10 L19 20 L16 17 L12 20 L8 17 L5 20 Z" fill="#D8B4FE"/>
-  <!-- Eyes -->
-  <rect x="8" y="9" width="2" height="3" rx="1" fill="#1E1B4B"/>
-  <rect x="14" y="9" width="2" height="3" rx="1" fill="#1E1B4B"/>
-  <!-- Blush -->
-  <circle cx="7" cy="13" r="1" fill="#F472B6"/>
-  <circle cx="17" cy="13" r="1" fill="#F472B6"/>
+  <path d="M20 50 C20 27 34 14 50 14 C66 14 80 27 80 50 L80 85 L70 77 L60 85 L50 77 L40 85 L30 77 L20 85 Z" fill="url(#bugbooGhostGrad)"/>
+
+  <!-- Cute Floating Hands -->
+  <ellipse cx="14.5" cy="58" rx="4.8" ry="6.8" fill="url(#bugbooGhostGrad)"/>
+  <ellipse cx="85.5" cy="58" rx="4.8" ry="6.8" fill="url(#bugbooGhostGrad)"/>
+
+  <!-- Joyful Arched Eyes -->
+  <path d="M33 46 Q40 39 47 46" stroke="#1E1B4B" stroke-width="4" stroke-linecap="round" fill="none"/>
+  <path d="M53 46 Q60 39 67 46" stroke="#1E1B4B" stroke-width="4" stroke-linecap="round" fill="none"/>
+
+  <!-- Cheerful Smile -->
+  <path d="M45.5 54.5 Q50 59 54.5 54.5" stroke="#1E1B4B" stroke-width="3" stroke-linecap="round" fill="none"/>
+
+  <!-- Blushing Cheeks -->
+  <circle cx="29" cy="53" r="5.8" fill="#F472B6" opacity="0.9"/>
+  <circle cx="71" cy="53" r="5.8" fill="#F472B6" opacity="0.9"/>
 </svg>

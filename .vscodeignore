@@ -9,4 +9,5 @@ tsconfig.json
 node_modules/**
 *.mp4
 video_render/**
+media/showcase-preview.gif
 
