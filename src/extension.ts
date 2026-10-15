@@ -243,9 +243,9 @@ function registerCommands(context: vscode.ExtensionContext): void {
   // Command 3: Show Stats
   context.subscriptions.push(
     vscode.commands.registerCommand('bugboo.showStats', () => {
-      const prog = currentState.progression;
       const stage = PersonalityEngine.getChaosStage(currentState.chaos);
-      const msg = `👻 BugBoo Stats — Level ${prog.level} | Total XP: ${prog.totalXp} (${prog.xpInCurrentLevel}/${prog.xpNeededForNextLevel} to next) | Chaos: ${Math.round(currentState.chaos)}% (${stage})`;
+      const color = currentAvatarColor.charAt(0).toUpperCase() + currentAvatarColor.slice(1);
+      const msg = `👻 BugBoo Stats — Chaos: ${Math.round(currentState.chaos)}% (${stage}) | Mood: ${currentState.mood.toUpperCase()} | Theme: ${color}`;
       vscode.window.showInformationMessage(msg);
     })
   );
@@ -254,7 +254,7 @@ function registerCommands(context: vscode.ExtensionContext): void {
   context.subscriptions.push(
     vscode.commands.registerCommand('bugboo.resetProgress', async () => {
       const confirm = await vscode.window.showWarningMessage(
-        'Are you sure you want to reset all BugBoo XP and level progression?',
+        'Are you sure you want to reset BugBoo Chaos meter and state?',
         { modal: true },
         'Yes, Reset',
         'Cancel'
@@ -265,16 +265,17 @@ function registerCommands(context: vscode.ExtensionContext): void {
         currentState.progression = resetProgression;
         currentState.chaos = 0;
         currentState.mood = 'idle';
-        currentState.dialogue = 'Fresh start! All memories erased.';
+        currentState.dialogue = 'Fresh start! BugBoo is chilled out.';
 
         viewProvider.updateState({
           mood: currentState.mood,
           dialogue: currentState.dialogue,
           chaos: currentState.chaos,
-          progression: currentState.progression
+          progression: currentState.progression,
+          avatarColor: currentAvatarColor
         });
 
-        vscode.window.showInformationMessage('BugBoo progress has been reset.');
+        vscode.window.showInformationMessage('👻 BugBoo state has been reset!');
       }
     })
   );

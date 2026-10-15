@@ -7,12 +7,9 @@
   const ghostBox = document.getElementById('ghostBox');
   const ghostSvg = document.getElementById('ghostSvg');
   const speechTextBubble = document.getElementById('speechTextBubble');
-  const companionLvlBadge = document.getElementById('companionLvlBadge');
   const dockMoodPill = document.getElementById('dockMoodPill');
   const chaosNumber = document.getElementById('chaosNumber');
   const chaosBarFill = document.getElementById('chaosBarFill');
-  const xpNumber = document.getElementById('xpNumber');
-  const xpBarFill = document.getElementById('xpBarFill');
   const changeMoodBtn = document.getElementById('changeMoodBtn');
   const changeColorBtn = document.getElementById('changeColorBtn');
   const statsBtn = document.getElementById('statsBtn');
@@ -87,9 +84,9 @@
       <path d="M44 54 Q50 64 56 54 Z" fill="#E11D48"/>
       <circle cx="28" cy="52" r="6" fill="#F472B6"/>
       <circle cx="72" cy="52" r="6" fill="#F472B6"/>
-      <!-- Party Cone Hat -->
-      <polygon points="40,16 60,16 50,0" fill="#F59E0B"/>
-      <circle cx="50" cy="0" r="3" fill="#EC4899"/>
+      <!-- Party Cone Hat (tip lowered to y=4 so pom-pom at y=4 r=3.5 fits cleanly) -->
+      <polygon points="40,20 60,20 50,4" fill="#F59E0B"/>
+      <circle cx="50" cy="4" r="3.5" fill="#EC4899"/>
       <!-- Confetti stars -->
       <text x="14" y="24" font-size="12" fill="#FDE047">★</text>
       <text x="78" y="24" font-size="12" fill="#38BDF8">✦</text>
@@ -210,11 +207,6 @@
       speechTextBubble.textContent = state.dialogue || '...';
     }
 
-    // Header Level
-    if (companionLvlBadge) {
-      companionLvlBadge.textContent = 'LVL ' + (state.progression?.level ?? 1);
-    }
-
     // Chaos
     const chaosVal = Math.round(state.chaos ?? 0);
     const stageName = state.chaosStage || (chaosVal > 75 ? 'Max Drama' : chaosVal > 45 ? 'Chaotic' : chaosVal > 15 ? 'Suspicious' : 'Chill');
@@ -223,19 +215,6 @@
     }
     if (chaosBarFill) {
       chaosBarFill.style.width = Math.min(100, Math.max(0, chaosVal)) + '%';
-    }
-
-    // Companion XP
-    if (state.progression) {
-      const currentXp = state.progression.xpInCurrentLevel ?? 0;
-      const neededXp = state.progression.xpNeededForNextLevel ?? 100;
-      if (xpNumber) {
-        xpNumber.textContent = `${currentXp} / ${neededXp}`;
-      }
-      if (xpBarFill) {
-        const pct = (currentXp / neededXp) * 100;
-        xpBarFill.style.width = Math.min(100, Math.max(0, pct)) + '%';
-      }
     }
   }
 

@@ -2,7 +2,7 @@
 
 A lightweight, event-driven pixel-art ghost companion docked directly beneath the Explorer file tree in VS Code, Cursor, and Antigravity.
 
-BugBoo provides real-time ambient feedback based on editor events, file navigation, typing cadence, AI prompts, and syntax diagnostics. It features a dynamic Chaos Meter, persistent experience (XP) progression, and 8 responsive emotional states—built without polling intervals or background performance penalties.
+BugBoo provides real-time ambient feedback based on editor events, file navigation, typing cadence, AI prompts, and syntax diagnostics. It features a dynamic Chaos Meter, 7 customizable color themes, and 8 responsive emotional states—built without polling intervals or background performance penalties.
 
 ---
 
@@ -45,7 +45,7 @@ BugBoo dynamically expresses 8 distinct emotional states driven by real-time dev
 | **Happy** | Productive Flow | Gentle hovering during continuous coding sessions. |
 | **Curious** | File Navigation | Observes file switching and project directory browsing. |
 | **Panicked** | Syntax / Build Errors | High-alert expression triggered by diagnostics failures. |
-| **Celebrating** | Error Resolution | Commemorative animation upon fixing broken code. |
+| **Celebrating** | Error Resolution | Commemorative party animation upon fixing broken code. |
 | **Rage** | High Chaos Spike | Fiery reaction when editor error rate exceeds threshold. |
 | **Smug** | Clean Build | Relaxed satisfaction when tests and linting succeed. |
 | **Dizzy** | File Thrashing | Disoriented reaction when switching rapidly between files. |
@@ -60,7 +60,7 @@ BugBoo detects when AI assistance tools (such as GitHub Copilot, Cursor Composer
 
 ---
 
-### 3. Real-Time Diagnostic Reactions
+### 3. Real-Time Diagnostic Reactions & Chaos Meter
 
 ![Diagnostics & Panic State](media/panic-preview.png)
 
@@ -73,11 +73,17 @@ When compiler errors or linter warnings occur, BugBoo responds immediately with 
 
 ---
 
-### 4. Progression & Statistics
+### 4. Avatar Color Customization
 
-- **Experience Points (XP)**: Earned through clean saves, resolved errors, session milestones, and coding duration.
-- **Companion Leveling**: Automatic level advancement based on accumulated experience.
-- **Persistent State**: Progress is securely stored across workspace restarts.
+Choose between 7 sleek ghost color themes directly from the sidebar or via the Command Palette:
+
+- **Lavender** (Default soft purple)
+- **Mint** (Vibrant cyber-green)
+- **Cyberpunk** (Electric neon cyan)
+- **Rose** (Bubblegum pastel pink)
+- **Midnight** (Deep moody violet)
+- **Sunshine** (Warm golden amber)
+- **Spectral** (Classic spooky off-white)
 
 ---
 
@@ -90,8 +96,8 @@ Access commands via `Ctrl+Shift+P` (or `Cmd+Shift+P` on macOS) by typing `BugBoo
 | `BugBoo: Summon` | `bugboo.summon` | Reveals and focuses the BugBoo companion view. |
 | `BugBoo: Change Mood` | `bugboo.changeMood` | Manually previews any of the 8 emotional expressions. |
 | `BugBoo: Customize Avatar Color` | `bugboo.changeColor` | Select from 7 avatar color themes (Lavender, Mint, Cyberpunk, Rose, Midnight, Sunshine, Spectral). |
-| `BugBoo: Show Stats` | `bugboo.showStats` | Displays an information notification with current Level, XP, and Chaos percentage. |
-| `BugBoo: Reset Progress` | `bugboo.resetProgress` | Clears stored experience and level progress (confirmation required). |
+| `BugBoo: Show Stats` | `bugboo.showStats` | Displays an information notification with current Chaos percentage, mood, and active color theme. |
+| `BugBoo: Reset Progress` | `bugboo.resetProgress` | Resets the Chaos meter and restores BugBoo to a chilled state. |
 
 ### Configuration
 

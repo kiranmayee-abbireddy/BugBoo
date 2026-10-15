@@ -192,16 +192,6 @@ export class BugBooViewProvider implements vscode.WebviewViewProvider {
       </div>
     </div>
 
-    <div class="dock-gauge">
-      <div class="gauge-labels">
-        <span>Companion XP</span>
-        <span id="xpNumber">0 / 100</span>
-      </div>
-      <div class="gauge-rail">
-        <div id="xpBarFill"></div>
-      </div>
-    </div>
-
     <!-- Quick Actions -->
     <div class="dock-actions">
       <button class="action-btn" id="changeMoodBtn" title="Cycle / Pick Mood">✨ Mood</button>
