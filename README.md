@@ -75,6 +75,8 @@ When compiler errors or linter warnings occur, BugBoo responds immediately with 
 
 ### 4. Avatar Color Customization
 
+![Avatar Color Customization](media/customization-preview.png)
+
 Choose between 7 sleek ghost color themes directly from the sidebar or via the Command Palette:
 
 - **Lavender** (Default soft purple)
