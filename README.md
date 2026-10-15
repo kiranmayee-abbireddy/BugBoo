@@ -89,8 +89,15 @@ Access commands via `Ctrl+Shift+P` (or `Cmd+Shift+P` on macOS) by typing `BugBoo
 |---|---|---|
 | `BugBoo: Summon` | `bugboo.summon` | Reveals and focuses the BugBoo companion view. |
 | `BugBoo: Change Mood` | `bugboo.changeMood` | Manually previews any of the 8 emotional expressions. |
+| `BugBoo: Customize Avatar Color` | `bugboo.changeColor` | Select from 7 avatar color themes (Lavender, Mint, Cyberpunk, Rose, Midnight, Sunshine, Spectral). |
 | `BugBoo: Show Stats` | `bugboo.showStats` | Displays an information notification with current Level, XP, and Chaos percentage. |
 | `BugBoo: Reset Progress` | `bugboo.resetProgress` | Clears stored experience and level progress (confirmation required). |
+
+### Configuration
+
+Customize BugBoo through VS Code Settings (`Ctrl+,` or `Cmd+,` searching for `bugboo`):
+
+- `bugboo.avatarColor`: Avatar color theme (`lavender`, `mint`, `cyberpunk`, `rose`, `midnight`, `sunshine`, `spectral`).
 
 ---
 

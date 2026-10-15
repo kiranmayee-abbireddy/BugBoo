@@ -52,6 +52,11 @@
         "category": "BugBoo"
       },
       {
+        "command": "bugboo.changeColor",
+        "title": "BugBoo: Customize Avatar Color",
+        "category": "BugBoo"
+      },
+      {
         "command": "bugboo.showStats",
         "title": "BugBoo: Show Stats",
         "category": "BugBoo"
@@ -61,7 +66,35 @@
         "title": "BugBoo: Reset Progress",
         "category": "BugBoo"
       }
-    ]
+    ],
+    "configuration": {
+      "title": "BugBoo",
+      "properties": {
+        "bugboo.avatarColor": {
+          "type": "string",
+          "default": "lavender",
+          "enum": [
+            "lavender",
+            "mint",
+            "cyberpunk",
+            "rose",
+            "midnight",
+            "sunshine",
+            "spectral"
+          ],
+          "enumDescriptions": [
+            "Classic Lavender Ghost (#D8B4FE)",
+            "Fresh Mint Green Ghost (#6EE7B7)",
+            "Neon Cyan Cyberpunk Ghost (#67E8F9)",
+            "Pastel Rose Pink Ghost (#F472B6)",
+            "Dark Slate Midnight Ghost (#94A3B8)",
+            "Bright Sunshine Gold Ghost (#FDE047)",
+            "Pure Spectral White Ghost (#F8FAFC)"
+          ],
+          "description": "Select the color theme for your BugBoo companion avatar."
+        }
+      }
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",

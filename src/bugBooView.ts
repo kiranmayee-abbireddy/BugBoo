@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { WebviewOutgoingMessage, WebviewIncomingMessage, GhostMood, ProgressionState } from './types';
+import { WebviewOutgoingMessage, WebviewIncomingMessage, GhostMood, ProgressionState, AvatarColor } from './types';
 import { PersonalityEngine } from './personality';
 
 export class BugBooViewProvider implements vscode.WebviewViewProvider {
@@ -18,6 +18,7 @@ export class BugBooViewProvider implements vscode.WebviewViewProvider {
     chaos: number;
     progression: ProgressionState;
     activeFile?: string;
+    avatarColor?: AvatarColor;
   };
   private lastBroadcastState?: {
     mood: GhostMood;
@@ -25,6 +26,7 @@ export class BugBooViewProvider implements vscode.WebviewViewProvider {
     chaos: number;
     totalXp: number;
     activeFile?: string;
+    avatarColor?: AvatarColor;
   };
 
   constructor(
@@ -35,6 +37,7 @@ export class BugBooViewProvider implements vscode.WebviewViewProvider {
       chaos: number;
       progression: ProgressionState;
       activeFile?: string;
+      avatarColor?: AvatarColor;
     },
     onUserAction: (action: WebviewIncomingMessage) => void
   ) {
@@ -84,6 +87,7 @@ export class BugBooViewProvider implements vscode.WebviewViewProvider {
     progression: ProgressionState;
     levelUp?: boolean;
     activeFile?: string;
+    avatarColor?: AvatarColor;
   }): void {
     const hasChanged =
       !this.lastBroadcastState ||
@@ -92,6 +96,7 @@ export class BugBooViewProvider implements vscode.WebviewViewProvider {
       this.lastBroadcastState.chaos !== state.chaos ||
       this.lastBroadcastState.totalXp !== state.progression.totalXp ||
       this.lastBroadcastState.activeFile !== (state.activeFile ?? this.currentState.activeFile) ||
+      this.lastBroadcastState.avatarColor !== (state.avatarColor ?? this.currentState.avatarColor) ||
       Boolean(state.levelUp);
 
     this.currentState = {
@@ -99,7 +104,8 @@ export class BugBooViewProvider implements vscode.WebviewViewProvider {
       dialogue: state.dialogue,
       chaos: state.chaos,
       progression: state.progression,
-      activeFile: state.activeFile ?? this.currentState.activeFile
+      activeFile: state.activeFile ?? this.currentState.activeFile,
+      avatarColor: state.avatarColor ?? this.currentState.avatarColor
     };
 
     if (!hasChanged) {
@@ -111,7 +117,8 @@ export class BugBooViewProvider implements vscode.WebviewViewProvider {
       dialogue: state.dialogue,
       chaos: state.chaos,
       totalXp: state.progression.totalXp,
-      activeFile: this.currentState.activeFile
+      activeFile: this.currentState.activeFile,
+      avatarColor: this.currentState.avatarColor
     };
 
     this.broadcastCurrentState(state.levelUp);
@@ -131,7 +138,8 @@ export class BugBooViewProvider implements vscode.WebviewViewProvider {
         chaosStage: PersonalityEngine.getChaosStage(this.currentState.chaos),
         progression: this.currentState.progression,
         levelUp,
-        activeFile: this.currentState.activeFile
+        activeFile: this.currentState.activeFile,
+        avatarColor: this.currentState.avatarColor
       }
     };
 
@@ -197,6 +205,7 @@ export class BugBooViewProvider implements vscode.WebviewViewProvider {
     <!-- Quick Actions -->
     <div class="dock-actions">
       <button class="action-btn" id="changeMoodBtn" title="Cycle / Pick Mood">✨ Mood</button>
+      <button class="action-btn" id="changeColorBtn" title="Customize Ghost Color">🎨 Color</button>
       <button class="action-btn" id="statsBtn" title="View BugBoo Stats">📊 Stats</button>
     </div>
   </div>

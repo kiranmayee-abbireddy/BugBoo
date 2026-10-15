@@ -9,8 +9,40 @@
   --text-muted: #94a3b8;
   --pill-bg: rgba(168, 85, 247, 0.25);
   --pill-border: rgba(168, 85, 247, 0.5);
+  --ghost-fill: #D8B4FE;
+  --ghost-glow: rgba(168, 85, 247, 0.5);
   --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Code", monospace;
+}
+
+/* Avatar Color Themes */
+.companion-dock.color-lavender {
+  --ghost-fill: #D8B4FE;
+  --ghost-glow: rgba(168, 85, 247, 0.55);
+}
+.companion-dock.color-mint {
+  --ghost-fill: #6EE7B7;
+  --ghost-glow: rgba(52, 211, 153, 0.55);
+}
+.companion-dock.color-cyberpunk {
+  --ghost-fill: #67E8F9;
+  --ghost-glow: rgba(6, 182, 212, 0.65);
+}
+.companion-dock.color-rose {
+  --ghost-fill: #F472B6;
+  --ghost-glow: rgba(244, 114, 182, 0.6);
+}
+.companion-dock.color-midnight {
+  --ghost-fill: #94A3B8;
+  --ghost-glow: rgba(148, 163, 184, 0.45);
+}
+.companion-dock.color-sunshine {
+  --ghost-fill: #FDE047;
+  --ghost-glow: rgba(250, 204, 21, 0.6);
+}
+.companion-dock.color-spectral {
+  --ghost-fill: #F8FAFC;
+  --ghost-glow: rgba(255, 255, 255, 0.7);
 }
 
 * {
@@ -65,7 +97,7 @@ body {
 }
 
 .companion-dock.mood-rage #ghostSvg {
-  filter: drop-shadow(0 6px 18px rgba(239, 68, 68, 0.65));
+  filter: drop-shadow(0 6px 18px rgba(239, 68, 68, 0.75)) !important;
 }
 
 /* Header */
@@ -138,7 +170,7 @@ body {
 #ghostSvg {
   width: 100%;
   height: 100%;
-  filter: drop-shadow(0 6px 16px rgba(168, 85, 247, 0.5));
+  filter: drop-shadow(0 6px 16px var(--ghost-glow));
   transition: filter 0.2s ease;
 }
 
@@ -230,14 +262,14 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.12);
   color: #e9d5ff;
   border-radius: 8px;
-  padding: 6px 8px;
+  padding: 6px 6px;
   font-size: 10.5px;
   font-weight: 700;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 4px;
+  gap: 3px;
   transition: all 0.2s ease;
   white-space: nowrap;
 }
@@ -298,9 +330,13 @@ body {
     font-size: 9.5px;
   }
 
+  .dock-actions {
+    flex-wrap: wrap;
+  }
+
   .action-btn {
-    font-size: 10px;
-    padding: 5px 6px;
+    font-size: 9.5px;
+    padding: 5px 4px;
   }
 }
 

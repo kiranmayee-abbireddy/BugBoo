@@ -14,13 +14,14 @@
   const xpNumber = document.getElementById('xpNumber');
   const xpBarFill = document.getElementById('xpBarFill');
   const changeMoodBtn = document.getElementById('changeMoodBtn');
+  const changeColorBtn = document.getElementById('changeColorBtn');
   const statsBtn = document.getElementById('statsBtn');
 
-  // Exact 8 SVG Expression Renderers matching demo video & README feature graphics
+  // Exact 8 SVG Expression Renderers with dynamic var(--ghost-fill)
   const EXPRESSIONS = {
     idle: `
       <!-- Idle / Sleeping Ghost -->
-      <path d="M20 50 C20 28 35 15 50 15 C65 15 80 28 80 50 L80 85 L70 78 L60 85 L50 78 L40 85 L30 78 L20 85 Z" fill="#D8B4FE"/>
+      <path d="M20 50 C20 28 35 15 50 15 C65 15 80 28 80 50 L80 85 L70 78 L60 85 L50 78 L40 85 L30 78 L20 85 Z" fill="var(--ghost-fill)"/>
       <!-- Sleepy eyes -->
       <path d="M34 48 Q40 52 46 48" stroke="#1E1B4B" stroke-width="3" stroke-linecap="round" fill="none"/>
       <path d="M54 48 Q60 52 66 48" stroke="#1E1B4B" stroke-width="3" stroke-linecap="round" fill="none"/>
@@ -33,7 +34,7 @@
     `,
     happy: `
       <!-- Happy Ghost -->
-      <path d="M20 50 C20 28 35 15 50 15 C65 15 80 28 80 50 L80 85 L70 78 L60 85 L50 78 L40 85 L30 78 L20 85 Z" fill="#D8B4FE"/>
+      <path d="M20 50 C20 28 35 15 50 15 C65 15 80 28 80 50 L80 85 L70 78 L60 85 L50 78 L40 85 L30 78 L20 85 Z" fill="var(--ghost-fill)"/>
       <!-- Joyful closed curved eyes -->
       <path d="M34 46 Q40 40 46 46" stroke="#1E1B4B" stroke-width="3.5" stroke-linecap="round" fill="none"/>
       <path d="M54 46 Q60 40 66 46" stroke="#1E1B4B" stroke-width="3.5" stroke-linecap="round" fill="none"/>
@@ -43,12 +44,12 @@
       <circle cx="30" cy="52" r="5" fill="#F472B6"/>
       <circle cx="70" cy="52" r="5" fill="#F472B6"/>
       <!-- Cute hands -->
-      <ellipse cx="16" cy="58" rx="4" ry="6" fill="#D8B4FE"/>
-      <ellipse cx="84" cy="58" rx="4" ry="6" fill="#D8B4FE"/>
+      <ellipse cx="16" cy="58" rx="4" ry="6" fill="var(--ghost-fill)"/>
+      <ellipse cx="84" cy="58" rx="4" ry="6" fill="var(--ghost-fill)"/>
     `,
     curious: `
       <!-- Curious Ghost -->
-      <path d="M20 50 C20 28 35 15 50 15 C65 15 80 28 80 50 L80 85 L70 78 L60 85 L50 78 L40 85 L30 78 L20 85 Z" fill="#D8B4FE"/>
+      <path d="M20 50 C20 28 35 15 50 15 C65 15 80 28 80 50 L80 85 L70 78 L60 85 L50 78 L40 85 L30 78 L20 85 Z" fill="var(--ghost-fill)"/>
       <!-- Wide questioning eyes -->
       <ellipse cx="40" cy="45" rx="5" ry="7" fill="#1E1B4B"/>
       <circle cx="42" cy="43" r="2" fill="#FFFFFF"/>
@@ -78,7 +79,7 @@
     `,
     celebrating: `
       <!-- Celebrating Ghost with Party Hat -->
-      <path d="M20 50 C20 28 35 15 50 15 C65 15 80 28 80 50 L80 85 L70 78 L60 85 L50 78 L40 85 L30 78 L20 85 Z" fill="#DDD6FE"/>
+      <path d="M20 50 C20 28 35 15 50 15 C65 15 80 28 80 50 L80 85 L70 78 L60 85 L50 78 L40 85 L30 78 L20 85 Z" fill="var(--ghost-fill)"/>
       <!-- Happy arched eyes -->
       <path d="M34 46 Q40 38 46 46" stroke="#1E1B4B" stroke-width="4" stroke-linecap="round" fill="none"/>
       <path d="M54 46 Q60 38 66 46" stroke="#1E1B4B" stroke-width="4" stroke-linecap="round" fill="none"/>
@@ -110,7 +111,7 @@
     `,
     smug: `
       <!-- Smug / Sassy Ghost -->
-      <path d="M20 50 C20 28 35 15 50 15 C65 15 80 28 80 50 L80 85 L70 78 L60 85 L50 78 L40 85 L30 78 L20 85 Z" fill="#C4B5FD"/>
+      <path d="M20 50 C20 28 35 15 50 15 C65 15 80 28 80 50 L80 85 L70 78 L60 85 L50 78 L40 85 L30 78 L20 85 Z" fill="var(--ghost-fill)"/>
       <!-- Half-closed smug eyes -->
       <path d="M34 46 Q40 42 46 45" stroke="#1E1B4B" stroke-width="3" stroke-linecap="round" fill="none"/>
       <circle cx="42" cy="48" r="2.5" fill="#1E1B4B"/>
@@ -150,6 +151,23 @@
   };
 
   let currentRenderedMood = '';
+  let currentColorTheme = '';
+
+  function setColor(color) {
+    const companionDock = document.getElementById('companionDock');
+    if (!companionDock) return;
+
+    const theme = color || 'lavender';
+    if (currentColorTheme !== theme) {
+      currentColorTheme = theme;
+      // Remove any existing color-* class
+      companionDock.className = companionDock.className
+        .split(' ')
+        .filter(c => !c.startsWith('color-'))
+        .join(' ');
+      companionDock.classList.add('color-' + theme);
+    }
+  }
 
   function setMood(mood) {
     if (!ghostSvg || !ghostBox) return;
@@ -182,6 +200,9 @@
 
   function updateUI(state) {
     if (!state) return;
+
+    // Avatar color theme
+    setColor(state.avatarColor);
 
     // Mood & dialogue
     setMood(state.mood);
@@ -237,6 +258,13 @@
   if (changeMoodBtn) {
     changeMoodBtn.addEventListener('click', function () {
       vscode.postMessage({ command: 'changeMood' });
+    });
+  }
+
+  // Change avatar color action button
+  if (changeColorBtn) {
+    changeColorBtn.addEventListener('click', function () {
+      vscode.postMessage({ command: 'changeColor' });
     });
   }
 

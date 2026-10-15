@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { GhostMood, NormalizedEvent, BugBooState } from './types';
+import { GhostMood, NormalizedEvent, BugBooState, AvatarColor } from './types';
 import { PersistenceManager } from './persistence';
 import { PersonalityEngine } from './personality';
 import { EventEngine } from './eventEngine';
@@ -11,6 +11,7 @@ let personalityEngine: PersonalityEngine | undefined;
 let eventEngine: EventEngine | undefined;
 
 let currentState: BugBooState;
+let currentAvatarColor: AvatarColor = 'lavender';
 
 export function activate(context: vscode.ExtensionContext) {
   // 1. Initialize Persistence & Engines
@@ -18,6 +19,8 @@ export function activate(context: vscode.ExtensionContext) {
   personalityEngine = new PersonalityEngine();
 
   const savedProgression = persistenceManager.getProgression();
+  const config = vscode.workspace.getConfiguration('bugboo');
+  currentAvatarColor = (config.get<string>('avatarColor') as AvatarColor) || 'lavender';
 
   currentState = {
     mood: 'idle',
@@ -35,7 +38,8 @@ export function activate(context: vscode.ExtensionContext) {
       mood: currentState.mood,
       dialogue: currentState.dialogue,
       chaos: currentState.chaos,
-      progression: currentState.progression
+      progression: currentState.progression,
+      avatarColor: currentAvatarColor
     },
     (userAction) => {
       handleUserAction(userAction);
@@ -47,6 +51,25 @@ export function activate(context: vscode.ExtensionContext) {
       BugBooViewProvider.viewType,
       viewProvider
     )
+  );
+
+  // Listen for config changes (e.g. user changes bugboo.avatarColor in Settings UI)
+  context.subscriptions.push(
+    vscode.workspace.onDidChangeConfiguration((e) => {
+      if (e.affectsConfiguration('bugboo.avatarColor')) {
+        const updatedConfig = vscode.workspace.getConfiguration('bugboo');
+        currentAvatarColor = (updatedConfig.get<string>('avatarColor') as AvatarColor) || 'lavender';
+        if (viewProvider) {
+          viewProvider.updateState({
+            mood: currentState.mood,
+            dialogue: currentState.dialogue,
+            chaos: currentState.chaos,
+            progression: currentState.progression,
+            avatarColor: currentAvatarColor
+          });
+        }
+      }
+    })
   );
 
   // 3. Register Event Engine
@@ -100,7 +123,8 @@ async function processNormalizedEvent(event: NormalizedEvent): Promise<void> {
     chaos: currentState.chaos,
     progression: currentState.progression,
     levelUp: leveledUp,
-    activeFile: event.details?.fileName
+    activeFile: event.details?.fileName,
+    avatarColor: currentAvatarColor
   });
 }
 
@@ -117,6 +141,10 @@ function handleUserAction(action: { command: string; mood?: GhostMood }): void {
     }
     case 'changeMood': {
       vscode.commands.executeCommand('bugboo.changeMood');
+      break;
+    }
+    case 'changeColor': {
+      vscode.commands.executeCommand('bugboo.changeColor');
       break;
     }
     case 'showStats': {
@@ -142,8 +170,44 @@ function registerCommands(context: vscode.ExtensionContext): void {
           mood: currentState.mood,
           dialogue: currentState.dialogue,
           chaos: currentState.chaos,
-          progression: currentState.progression
+          progression: currentState.progression,
+          avatarColor: currentAvatarColor
         });
+      }
+    })
+  );
+
+  // Command 1b: Change Avatar Color
+  context.subscriptions.push(
+    vscode.commands.registerCommand('bugboo.changeColor', async () => {
+      const colors: { label: string; color: AvatarColor; desc: string }[] = [
+        { label: '💜 Lavender (Default)', color: 'lavender', desc: 'Classic dreamy purple ghost' },
+        { label: '🌿 Mint Fresh', color: 'mint', desc: 'Calming soft mint green' },
+        { label: '⚡ Cyberpunk Cyan', color: 'cyberpunk', desc: 'Electric high-tech neon glow' },
+        { label: '🌸 Pastel Rose', color: 'rose', desc: 'Cute blush pink ghost' },
+        { label: '🌑 Midnight Slate', color: 'midnight', desc: 'Stealthy dark obsidian ghost' },
+        { label: '☀️ Sunshine Gold', color: 'sunshine', desc: 'Warm bright energetic ghost' },
+        { label: '🤍 Spectral White', color: 'spectral', desc: 'Ethereal pure classic phantom' }
+      ];
+
+      const selected = await vscode.window.showQuickPick(colors, {
+        placeHolder: `Select BugBoo's avatar color (Current: ${currentAvatarColor})`
+      });
+
+      if (selected) {
+        currentAvatarColor = selected.color;
+        const config = vscode.workspace.getConfiguration('bugboo');
+        await config.update('avatarColor', selected.color, vscode.ConfigurationTarget.Global);
+
+        if (viewProvider) {
+          viewProvider.updateState({
+            mood: currentState.mood,
+            dialogue: `new style unlocked: ${selected.label.split(' ')[1]}! ✨`,
+            chaos: currentState.chaos,
+            progression: currentState.progression,
+            avatarColor: currentAvatarColor
+          });
+        }
       }
     })
   );

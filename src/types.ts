@@ -45,9 +45,12 @@ export interface NormalizedEvent {
   };
 }
 
+export type AvatarColor = 'lavender' | 'mint' | 'cyberpunk' | 'rose' | 'midnight' | 'sunshine' | 'spectral';
+
 export interface WebviewIncomingMessage {
-  command: 'requestState' | 'changeMood' | 'resetProgress' | 'showStats' | 'interact';
+  command: 'requestState' | 'changeMood' | 'resetProgress' | 'showStats' | 'interact' | 'changeColor';
   mood?: GhostMood;
+  color?: AvatarColor;
 }
 
 export interface WebviewOutgoingMessage {
@@ -60,5 +63,6 @@ export interface WebviewOutgoingMessage {
     progression: ProgressionState;
     levelUp?: boolean;
     activeFile?: string;
+    avatarColor?: AvatarColor;
   };
 }
